@@ -10,6 +10,9 @@ import Use from './pages/use/Use.tsx';
 import Cart from './pages/cart/Cart.tsx';
 import TypeManagement from './pages/type-management/TypeManagement.tsx';
 import Config from './pages/config/Config.tsx';
+import Drunked from './pages/drunked/Drunked.tsx';
+import Drinks from './pages/drinks/Drinks.tsx';
+import DrinkTypes from './pages/drink-types/DrinkTypes.tsx';
 
 interface ProtectedRouteProps {
   element: JSX.Element;
@@ -52,6 +55,18 @@ function App() {
           <Route
             path="/types"
             element={<ProtectedRoute element={<TypeManagement />} />}
+          />
+          <Route
+            path="/drinks"
+            element={<ProtectedRoute element={<Drinks />} />}
+          />
+          <Route
+            path="/drunked"
+            element={<ProtectedRoute element={<Drunked />} />}
+          />
+          <Route
+            path="/drink-types"
+            element={<ProtectedRoute element={<DrinkTypes />} />}
           />
 
           {/* Pentru orice altceva, redirecționează la "/" */}

@@ -1,0 +1,142 @@
+/* styling minim pentru Drinks.tsx */
+
+.container {
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header a {
+    text-decoration: none;
+    color: #1976d2;
+    font-size: 0.9rem;
+}
+
+.userLabel {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.searchSection {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.searchSection input {
+    padding: 0.5rem;
+    width: 70%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    background: #fff;
+    height: 48px;
+    box-sizing: border-box;
+    color: #222;
+}
+
+.searchSection button {
+    border-radius: 100px;
+    width: calc(30% - 2px);
+    height: 48px;
+    box-shadow: none;
+    border: none;
+    background: #50d68f;
+    color: #fff;
+}
+
+.filterContainer {
+    margin: 12px 0;
+}
+
+.typeButtons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.typeButtons button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #1976d2;
+    background: #fff;
+    color: #1976d2;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.typeButtons .activeFilter {
+    background: #1976d2;
+    color: #fff;
+}
+
+.addSection {
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.addForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.addForm input,
+.addForm select {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+}
+
+.addForm button {
+    padding: 4px 12px;
+}
+
+.listSection {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.drinkItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.itemInfo {
+    flex: 1;
+}
+
+.itemName {
+    font-weight: bold;
+}
+
+.itemMeta {
+    margin-left: 10px;
+    color: #555;
+    font-size: 0.9rem;
+}
+.itemActions {
+    display: flex;
+    gap: 2px;
+}
+.itemActions button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}

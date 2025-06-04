@@ -37,6 +37,12 @@ const useRoutes = require('./routes/useRoutes');
 app.use('/api/use', useRoutes);
 const listRoutes = require('./routes/listRoutes');
 app.use('/api/lists', listRoutes);
+const typeDrinkRoutes = require('./routes/drinkTypeRoutes');
+app.use('/api/drink-types', typeDrinkRoutes);
+const drinkRoutes = require('./routes/drinkRoutes');
+app.use('/api/drinks', drinkRoutes);
+const drunkRoutes = require('./routes/drunkRoutes');
+app.use('/api/drunk', drunkRoutes);
 
 console.log('🔧 Configurare Swagger UI...');
 setupSwagger(app);

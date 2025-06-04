@@ -1,0 +1,43 @@
+/* styling minim pentru Drunked.tsx */
+
+.container {
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header a {
+    text-decoration: none;
+    color: #1976d2;
+    font-size: 0.9rem;
+}
+
+.userLabel {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.listSection {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.drunkItem {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.itemName {
+    font-weight: bold;
+}
+
+.itemMeta {
+    margin-left: 10px;
+    color: #555;
+    font-size: 0.9rem;
+}

@@ -5,9 +5,10 @@
   gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  height: 100vh;
+  /*height: 100vh;*/
   align-items: center;
   justify-content: center;
+  margin: auto 0;
 }
 .home_btn {
   width: calc(50% - 5px);

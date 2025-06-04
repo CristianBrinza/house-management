@@ -12,6 +12,9 @@ export default function Config() {
         <a className={styles.home_btn} href="/types">
           Inventory Types
         </a>
+        <a className={styles.home_btn} href="/drink-types">
+          Drink Types
+        </a>
       </div>
     </>
   );

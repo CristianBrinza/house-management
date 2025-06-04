@@ -174,7 +174,7 @@ const Inventory: React.FC = () => {
               setFilterSubType(null);
             }}
           >
-            Toate
+            All
           </button>
 
           {types.map(t => (
@@ -204,7 +204,7 @@ const Inventory: React.FC = () => {
                 className={filterSubType === null ? styles.activeFilter : ''}
                 onClick={() => setFilterSubType(null)}
               >
-                Toate
+                All
               </button>
 
               {currentSubs.map(st => (
