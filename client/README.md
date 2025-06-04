@@ -1,1 +1,1 @@
-# Home management
+# Inventory management

@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require('./routes/authRoutes');
+const inventoryRoutes = require('./routes/inventoryRoutes');
+const typeRoutes = require('./routes/typeRoutes');
 const setupSwagger = require('./swagger');
 
 console.log('🌐 Variabile de mediu încărcate:');
@@ -28,6 +30,9 @@ app.use('/api/auth', (req, res, next) => {
   console.log(`➡️  [${new Date().toISOString()}] Ruta apelată: ${req.method} ${req.originalUrl}`);
   next();
 }, authRoutes);
+
+app.use('/api/inventory', inventoryRoutes);
+app.use('/api/types', typeRoutes);
 
 console.log('🔧 Configurare Swagger UI...');
 setupSwagger(app);

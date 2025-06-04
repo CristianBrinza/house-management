@@ -18,6 +18,7 @@ interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,18 +36,19 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // La montare, verificăm dacă există user salvat în localStorage
+  // La montare, verificăm localStorage și setăm user/token
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-      // setează token-ul în axios, ca header implicit
       const token = localStorage.getItem('token');
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }
     }
+    setLoading(false); // Am terminat verificarea inițială
   }, []);
 
   const login = async (username: string, password: string) => {
@@ -56,13 +58,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         { username, password }
       );
       const { user: loggedUser, token } = res.data;
-      // salvează în localStorage
       localStorage.setItem('user', JSON.stringify(loggedUser));
       localStorage.setItem('token', token);
-      // setează header-ul Authorization pentru toate request-urile viitoare
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(loggedUser);
-      navigate('/'); // după login, redirecționează pe Home
+      navigate('/'); // după login, redirecționează pe Home (sau orice rută protejată)
     } catch (err) {
       console.error(err);
       alert('Credențiale invalide');
@@ -78,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
