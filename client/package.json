@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
-    "deploy": "yarn build && wrangler pages deploy ./dist --project-name=mtc",
+    "deploy": "yarn build && wrangler pages deploy ./dist --project-name=house",
     "predeploy": "yarn build"
   },
   "dependencies": {

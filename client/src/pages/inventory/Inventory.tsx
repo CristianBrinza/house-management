@@ -234,7 +234,9 @@ const Inventory: React.FC = () => {
   return (
     <div className={styles.inventoryContainer}>
       <header className={styles.inventoryHeader}>
-        <h1>Inventory</h1>
+        <h1> <a href="/">← Back</a>
+          <br />
+          Inventory</h1>
       </header>
 
       <section className={styles.inventorySearch}>

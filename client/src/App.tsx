@@ -8,6 +8,8 @@ import Inventory from './pages/inventory/Inventory.tsx';
 import { AuthProvider, useAuth } from './context/AuthContext.tsx';
 import Use from './pages/use/Use.tsx';
 import Cart from './pages/cart/Cart.tsx';
+import TypeManagement from './pages/type-management/TypeManagement.tsx';
+import Config from './pages/config/Config.tsx';
 
 interface ProtectedRouteProps {
   element: JSX.Element;
@@ -41,6 +43,10 @@ function App() {
           />
           <Route path="/use" element={<ProtectedRoute element={<Use />} />} />
           <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
+
+          {/* setting and config */}
+          <Route path="/config" element={<ProtectedRoute element={<Config />} />} />
+          <Route path="/types" element={<ProtectedRoute element={<TypeManagement />} />} />
 
           {/* Pentru orice altceva, redirecționează la "/" */}
           <Route path="*" element={<Navigate to="/" replace />} />
