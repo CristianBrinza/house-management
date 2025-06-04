@@ -265,7 +265,7 @@
 }
 
 .bottom {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 50%;
   width: 100%;
@@ -277,7 +277,7 @@
   align-items: center;
   max-width: 900px;
   justify-content: space-between;
-  transform: translateX(-50%);
+  /*transform: translateX(-50%);*/
 }
 .bottom a {
   border-radius: 100px;
