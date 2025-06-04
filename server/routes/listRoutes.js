@@ -6,7 +6,8 @@ const {
     deleteList,
     addItemToList,
     deleteItemFromList,
-    buyItemFromList
+    buyItemFromList,
+    toggleItemChecked
 } = require('../controllers/listController');
 const authMiddleware = require('../middleware/authMiddleware');
 
@@ -190,5 +191,42 @@ router.delete('/:listId/items/:itemName', deleteItemFromList);
  *         description: Listă nu a fost găsită
  */
 router.post('/:listId/buy/:itemName', buyItemFromList);
+
+/**
+ * @swagger
+ * /api/lists/{listId}/items/{itemId}/check:
+ *   put:
+ *     summary: Setează checked=true/false pentru itemul {itemId} din lista {listId}
+ *     tags: [Lists]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: listId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: itemId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [checked]
+ *             properties:
+ *               checked:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Item actualizat
+ *       404:
+ *         description: Listă/item inexistent
+ */
+router.put('/:listId/items/:itemId/check', toggleItemChecked);
 
 module.exports = router;

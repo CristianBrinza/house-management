@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 
 const listItemSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
-    quantity: { type: Number, required: true, default: 1 }
+    quantity: { type: Number, required: true, default: 1 },
+    checked: { type: Boolean, default: false }  // ← adăugat
 });
 
 const shoppingListSchema = new mongoose.Schema({

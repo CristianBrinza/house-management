@@ -7,7 +7,12 @@ import styles from './Cart.module.css';
 interface ShoppingList {
   _id: string;
   name: string;
-  items: { name: string; quantity: number }[];
+  items: {
+    _id: string;
+    name: string;
+    quantity: number;
+    checked: boolean;
+  }[];
 }
 
 interface InventoryItem {
@@ -21,7 +26,7 @@ const Cart: React.FC = () => {
   const [newListName, setNewListName] = useState('');
   const [inventoryNames, setInventoryNames] = useState<string[]>([]);
 
-  // preia listele și inventarul doar cu nume (pentru sugestii)
+  // Preia toate listele
   const fetchLists = async () => {
     try {
       const res = await axios.get<ShoppingList[]>(
@@ -33,6 +38,7 @@ const Cart: React.FC = () => {
     }
   };
 
+  // Preia numele din inventar (pentru sugestii în datalist)
   const fetchInventoryNames = async () => {
     try {
       const res = await axios.get<InventoryItem[]>(
@@ -49,7 +55,7 @@ const Cart: React.FC = () => {
     fetchInventoryNames();
   }, []);
 
-  // creare listă nouă
+  // Creare listă nouă
   const handleCreateList = async () => {
     if (!newListName.trim()) {
       alert('Nume listă obligatoriu.');
@@ -67,7 +73,7 @@ const Cart: React.FC = () => {
     }
   };
 
-  // șterge listă
+  // Șterge întreaga listă
   const handleDeleteList = async (id: string) => {
     if (!confirm('Sigur vrei să ștergi această listă?')) return;
     try {
@@ -79,7 +85,7 @@ const Cart: React.FC = () => {
     }
   };
 
-  // adaugă item în listă
+  // Adaugă un item în listă
   const handleAddItemToList = async (
     listId: string,
     name: string,
@@ -101,7 +107,7 @@ const Cart: React.FC = () => {
     }
   };
 
-  // șterge item din listă
+  // Șterge un item din listă
   const handleDeleteItemFromList = async (listId: string, itemName: string) => {
     if (!confirm(`Ștergi ${itemName} din listă?`)) return;
     try {
@@ -116,7 +122,7 @@ const Cart: React.FC = () => {
     }
   };
 
-  // buy (cumpără) item din listă
+  // Marchează un item ca „achiziționat”
   const handleBuyItem = async (
     listId: string,
     itemName: string,
@@ -137,6 +143,25 @@ const Cart: React.FC = () => {
     } catch (err) {
       console.error('❌ Eroare la handleBuyItem:', err);
       alert('Eroare la cumpărare item.');
+    }
+  };
+
+  // Toggle checked/un-checked pentru un item
+  const handleToggleChecked = async (
+    listId: string,
+    itemId: string,
+    newChecked: boolean
+  ) => {
+    try {
+      await axios.put(
+        import.meta.env.VITE_API_URL +
+          `/api/lists/${listId}/items/${itemId}/check`,
+        { checked: newChecked }
+      );
+      await fetchLists();
+    } catch (err) {
+      console.error('❌ Eroare la handleToggleChecked:', err);
+      alert('Nu am putut salva starea checkbox-ului.');
     }
   };
 
@@ -174,11 +199,19 @@ const Cart: React.FC = () => {
 
             <div className={styles.listItems}>
               {list.items.length === 0 && <p>Lista este goală.</p>}
-              {list.items.map((it, idx) => (
-                <div key={idx} className={styles.listItem}>
-                  <span>
+              {list.items.map(it => (
+                <div key={it._id} className={styles.listItem}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      className={styles.listItemCheck}
+                      checked={it.checked}
+                      onChange={e =>
+                        handleToggleChecked(list._id, it._id, e.target.checked)
+                      }
+                    />
                     {it.name} (Qty: {it.quantity})
-                  </span>
+                  </label>
                   <div className={styles.listItemButtons}>
                     <button
                       onClick={() =>
@@ -261,7 +294,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({
         step="1"
         min="1"
         value={quantity}
-        onChange={e => setQuantity(parseInt(e.target.value))}
+        onChange={e => setQuantity(parseInt(e.target.value) || 1)}
         required
       />
       <button type="submit">Add Item</button>

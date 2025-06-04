@@ -61,7 +61,10 @@ const Use: React.FC = () => {
   const handleQuantityChange = (id: string, qty: number) => {
     setSelected(prev => ({
       ...prev,
-      [id]: Math.max(0, qty),
+      [id]: Math.max(
+        0,
+        Math.min(qty, inventory.find(it => it._id === id)?.quantity ?? qty)
+      ),
     }));
   };
 
@@ -183,13 +186,13 @@ const Use: React.FC = () => {
                   </span>
                 </div>
                 <div className={styles.itemSelect}>
-                  {/* Buton „-” */}
+                  {/* Buton „-” scade cu 1, dar nu sub 0 */}
                   <div
                     className={styles.itemSelect_btn}
                     onClick={() =>
                       handleQuantityChange(
                         item._id,
-                        Math.max(0, currentQty - 1)
+                        currentQty <= 1 ? 0 : currentQty - 1
                       )
                     }
                   >
@@ -200,18 +203,19 @@ const Use: React.FC = () => {
                     type="number"
                     min={0}
                     max={item.quantity}
-                    step="1"
+                    step="0.01" // Permite orice zecimal
                     value={currentQty}
-                    onChange={e =>
+                    onChange={e => {
+                      const parsed = parseFloat(e.target.value) || 0;
                       handleQuantityChange(
                         item._id,
-                        Math.min(item.quantity, parseInt(e.target.value) || 0)
-                      )
-                    }
+                        Math.min(item.quantity, parsed)
+                      );
+                    }}
                     className={styles.quantityInput}
                   />
 
-                  {/* Buton „+” */}
+                  {/* Buton „+” crește cu 1, dar nu peste stoc */}
                   <div
                     className={styles.itemSelect_btn}
                     onClick={() =>

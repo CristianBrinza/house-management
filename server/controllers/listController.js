@@ -149,3 +149,35 @@ exports.buyItemFromList = async (req, res) => {
         res.status(500).json({ error: 'Server error la buy item.' });
     }
 };
+
+exports.toggleItemChecked = async (req, res) => {
+    try {
+        const { listId, itemId } = req.params;
+        const { checked } = req.body;
+        console.log(`🔘 [${new Date().toISOString()}] toggleItemChecked list=${listId} item=${itemId} -> checked=${checked}`);
+
+        if (typeof checked !== 'boolean') {
+            return res.status(400).json({ error: 'Parametrul "checked" trebuie să fie boolean.' });
+        }
+
+        const list = await ShoppingList.findById(listId);
+        if (!list) {
+            return res.status(404).json({ error: 'Listă nu a fost găsită.' });
+        }
+
+        // găsim sub‐documentul itemului după _id
+        const item = list.items.id(itemId);
+        if (!item) {
+            return res.status(404).json({ error: 'Item nu a fost găsit în listă.' });
+        }
+
+        item.checked = checked;
+        await list.save();
+
+        // opțional, returnăm lista actualizată
+        res.json(list);
+    } catch (err) {
+        console.error('❌ Eroare la toggleItemChecked:', err);
+        res.status(500).json({ error: 'Server error la toggle checked.' });
+    }
+};
