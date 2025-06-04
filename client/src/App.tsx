@@ -6,6 +6,8 @@ import Home from './pages/home/Home.tsx';
 import Login from './pages/login/Login.tsx';
 import Inventory from './pages/inventory/Inventory.tsx';
 import { AuthProvider, useAuth } from './context/AuthContext.tsx';
+import Use from './pages/use/Use.tsx';
+import Cart from './pages/cart/Cart.tsx';
 
 interface ProtectedRouteProps {
   element: JSX.Element;
@@ -32,14 +34,13 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* Rute Protejate */}
-          <Route
-            path="/"
-            element={<ProtectedRoute element={<Home />} />}
-          />
+          <Route path="/" element={<ProtectedRoute element={<Home />} />} />
           <Route
             path="/inventory"
             element={<ProtectedRoute element={<Inventory />} />}
           />
+          <Route path="/use" element={<ProtectedRoute element={<Use />} />} />
+          <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
 
           {/* Pentru orice altceva, redirecționează la "/" */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -1,0 +1,172 @@
+/* src/pages/use/Use.module.css */
+
+.useContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+.useHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.useHeader a {
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 0.9rem;
+}
+
+.userLabel {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.groupForm {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.groupInput {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.useButton {
+  border-radius: 100px;
+  padding: 5px 20px;
+  height: 40px;
+  box-shadow: none;
+  border: none;
+  background: #50d68f;
+  margin: -10px 0 10px;
+}
+
+.useButton:disabled {
+  background: #90caf9;
+  cursor: default;
+}
+
+.summarySection {
+  margin-bottom: 1rem;
+  background: #f1f8e9;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+.summarySection h3 {
+  margin: 0;
+}
+
+.summaryList {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.inventoryList {
+  margin-bottom: 2rem;
+}
+
+.searchWrapper {
+  margin-bottom: 0.75rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  background: #fff;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.noItemsMessage {
+  color: #888;
+  font-style: italic;
+}
+
+.inventoryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemName {
+  font-weight: bold;
+}
+
+.itemMeta {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.itemSelect {
+  width: 100px;
+}
+
+.quantityInput {
+  width: 100%;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fff;
+  color: #222;
+  border-radius: 100px;
+}
+
+.historySection {
+  margin-top: 2rem;
+}
+
+.noHistoryMessage {
+  color: #888;
+  font-style: italic;
+}
+
+.historyItem {
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.historyName {
+  font-size: 1rem;
+}
+
+.historyDate {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.historyList {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.historyListItem {
+  line-height: 1.4;
+}

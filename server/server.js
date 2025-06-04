@@ -12,9 +12,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const authRoutes = require('./routes/authRoutes');
-const inventoryRoutes = require('./routes/inventoryRoutes');
-const typeRoutes = require('./routes/typeRoutes');
 const setupSwagger = require('./swagger');
 
 console.log('🌐 Variabile de mediu încărcate:');
@@ -26,13 +23,20 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log(`✅ MongoDB connected la ${process.env.MONGO_URI}`))
     .catch((err) => console.error('❌ Eroare conectare MongoDB:', err));
 
+const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', (req, res, next) => {
   console.log(`➡️  [${new Date().toISOString()}] Ruta apelată: ${req.method} ${req.originalUrl}`);
   next();
 }, authRoutes);
 
+const inventoryRoutes = require('./routes/inventoryRoutes');
 app.use('/api/inventory', inventoryRoutes);
+const typeRoutes = require('./routes/typeRoutes');
 app.use('/api/types', typeRoutes);
+const useRoutes = require('./routes/useRoutes');
+app.use('/api/use', useRoutes);
+const listRoutes = require('./routes/listRoutes');
+app.use('/api/lists', listRoutes);
 
 console.log('🔧 Configurare Swagger UI...');
 setupSwagger(app);

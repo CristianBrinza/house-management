@@ -17,28 +17,27 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <h2>Login</h2>
-        <div className={styles.field}>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className={styles.input}
-          />
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className={styles.input}
-          />
-        </div>
+
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          required
+          placeholder="username"
+          className={styles.input}
+        />
+
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+          placeholder="password"
+          className={styles.input}
+        />
+
         <button type="submit" className={styles.button}>
           Login
         </button>
@@ -46,7 +45,5 @@ const Login: React.FC = () => {
     </div>
   );
 };
-
-
 
 export default Login;
