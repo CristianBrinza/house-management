@@ -100,7 +100,8 @@ const Drunked: React.FC = () => {
               <div className={styles.itemActions}>
                 {/* Buton „View Comment” (doar dacă există comment) */}
                 {d.comment && d.comment.trim() !== '' && (
-                  <button style={{display: 'none'}}
+                  <button
+                    style={{ display: 'none' }}
                     className={styles.viewCommentButton}
                     onClick={() => openViewComment(d)}
                   >
@@ -113,7 +114,7 @@ const Drunked: React.FC = () => {
                   className={styles.editCommentButton}
                   onClick={() => openEditComment(d)}
                 >
-                   Comment
+                  Comment
                 </button>
               </div>
             </div>

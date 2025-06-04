@@ -7,7 +7,7 @@ interface Drink {
   _id: string;
   name: string;
   type: string;
-  date: string;   // format "YYYY-MM"
+  date: string; // format "YYYY-MM"
   price: number;
   comment: string;
 }
@@ -82,11 +82,11 @@ const Drinks: React.FC = () => {
     }
     try {
       await axios.post(import.meta.env.VITE_API_URL + '/api/drinks', {
-        name:    newName.trim(),
-        type:    newType,
-        date:    newDate,
-        price:   newPrice,
-        comment: newComment.trim()
+        name: newName.trim(),
+        type: newType,
+        date: newDate,
+        price: newPrice,
+        comment: newComment.trim(),
       });
       setNewName('');
       setNewType('');
@@ -135,11 +135,11 @@ const Drinks: React.FC = () => {
       await axios.put(
         import.meta.env.VITE_API_URL + `/api/drinks/${editing._id}`,
         {
-          name:    newName.trim(),
-          type:    newType,
-          date:    newDate,
-          price:   newPrice,
-          comment: newComment.trim()
+          name: newName.trim(),
+          type: newType,
+          date: newDate,
+          price: newPrice,
+          comment: newComment.trim(),
         }
       );
       setEditing(null);
@@ -188,7 +188,7 @@ const Drinks: React.FC = () => {
         import.meta.env.VITE_API_URL + `/api/drinks/${commentingDrink._id}`,
         {
           // Trimitem doar câmpul comment (put poate actualiza și celelalte, dar nu schimbăm)
-          comment: draftComment.trim()
+          comment: draftComment.trim(),
         }
       );
       closeCommentPopup();
@@ -338,7 +338,10 @@ const Drinks: React.FC = () => {
               <div className={styles.itemInfo}>
                 <span className={styles.itemName}>{d.name}</span>
                 <span className={styles.itemMeta}>
-                  {d.type}  <br/> <span className={styles.drink_small}>MDL{d.price.toFixed(2)} | {d.date}</span>
+                  {d.type} <br />{' '}
+                  <span className={styles.drink_small}>
+                    MDL{d.price.toFixed(2)} | {d.date}
+                  </span>
                 </span>
                 {/*{d.comment && (*/}
                 {/*  <span className={styles.itemCommentPreview}>*/}

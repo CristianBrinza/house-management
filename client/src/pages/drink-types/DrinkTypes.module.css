@@ -1,66 +1,66 @@
 /* src/pages/drink-types/DrinkTypes.module.css */
 
 .container {
-    padding: 16px;
+  padding: 16px;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header a {
-    text-decoration: none;
-    color: #1976d2;
-    font-size: 0.9rem;
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 0.9rem;
 }
 
 .userLabel {
-    font-size: 0.9rem;
-    color: #555;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .createSection {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .createSection input {
-    flex: 1;
-    padding: 6px 8px;
-    font-size: 14px;
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 14px;
 }
 
 .createSection button {
-    padding: 6px 12px;
+  padding: 6px 12px;
 }
 
 .typesList {
-    margin-top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .typeItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .typeName {
-    flex: 1;
-    font-weight: bold;
+  flex: 1;
+  font-weight: bold;
 }
 
 .typeItem input {
-    padding: 4px 8px;
-    font-size: 14px;
-    flex: 1;
+  padding: 4px 8px;
+  font-size: 14px;
+  flex: 1;
 }
 
 .typeItem button {
-    padding: 4px 8px;
-    font-size: 13px;
+  padding: 4px 8px;
+  font-size: 13px;
 }

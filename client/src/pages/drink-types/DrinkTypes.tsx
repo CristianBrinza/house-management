@@ -10,7 +10,6 @@ interface DrinkType {
 }
 
 const DrinkTypes: React.FC = () => {
-
   const [types, setTypes] = useState<DrinkType[]>([]);
   const [newTypeName, setNewTypeName] = useState('');
 
@@ -82,7 +81,9 @@ const DrinkTypes: React.FC = () => {
   const handleDeleteType = async (id: string) => {
     if (!confirm('Ștergi acest tip?')) return;
     try {
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/drink-types/${id}`);
+      await axios.delete(
+        import.meta.env.VITE_API_URL + `/api/drink-types/${id}`
+      );
       fetchTypes();
     } catch (err) {
       console.error('❌ Eroare la handleDeleteType:', err);

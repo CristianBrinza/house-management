@@ -1,198 +1,198 @@
 /* styling minim pentru Drinks.tsx */
 
 .container {
-    padding: 16px;
+  padding: 16px;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .header a {
-    text-decoration: none;
-    color: #1976d2;
-    font-size: 0.9rem;
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 0.9rem;
 }
 
 .userLabel {
-    font-size: 0.9rem;
-    color: #555;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .searchSection {
-    margin-top: 12px;
-    display: flex;
-    gap: 8px;
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
 }
 
 .searchSection input {
-    padding: 0.5rem;
-    width: 70%;
-    max-width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 100px;
-    background: #fff;
-    height: 48px;
-    box-sizing: border-box;
-    color: #222;
+  padding: 0.5rem;
+  width: 70%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  background: #fff;
+  height: 48px;
+  box-sizing: border-box;
+  color: #222;
 }
 
 .searchSection button {
-    border-radius: 100px;
-    width: calc(30% - 2px);
-    height: 48px;
-    box-shadow: none;
-    border: none;
-    background: #50d68f;
-    color: #fff;
+  border-radius: 100px;
+  width: calc(30% - 2px);
+  height: 48px;
+  box-shadow: none;
+  border: none;
+  background: #50d68f;
+  color: #fff;
 }
 
 .filterContainer {
-    margin: 12px 0;
+  margin: 12px 0;
 }
 
 .typeButtons {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .typeButtons button {
-    padding: 0.5rem 1rem;
-    border: 1px solid #1976d2;
-    background: #fff;
-    color: #1976d2;
-    border-radius: 4px;
-    cursor: pointer;
-    border-radius: 100px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1976d2;
+  background: #fff;
+  color: #1976d2;
+  border-radius: 4px;
+  cursor: pointer;
+  border-radius: 100px;
 }
 
 .typeButtons .activeFilter {
-    background: #1976d2;
-    color: #fff;
+  background: #1976d2;
+  color: #fff;
 }
 
 .addSection {
-    margin-top: 16px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .addForm {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .addForm input,
 .addForm select {
-    padding: 4px 8px;
-    font-size: 0.9rem;
+  padding: 4px 8px;
+  font-size: 0.9rem;
 }
 
 .addForm button {
-    padding: 4px 12px;
+  padding: 4px 12px;
 }
 
 .listSection {
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .drinkItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
 }
-.drink_small{
-    font-size: 12px;
+.drink_small {
+  font-size: 12px;
 }
 
 /* Popup */
 .popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .popupContent {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 6px;
-    width: 350px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    max-width: 80vw;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 6px;
+  width: 350px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 80vw;
 }
 .popupContent textarea {
-    width: 100%;
-    background: #fff;
-    color: #222;
-    border-radius: 8px;
-    min-height: 100px;
-    max-width: 100%;
-    min-width: 100%;
+  width: 100%;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  min-height: 100px;
+  max-width: 100%;
+  min-width: 100%;
 }
 
 .popupButtons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .popupButtons button {
-    padding: 0.5rem 0.75rem;
-    background: #1976d2;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .editRow {
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .itemInfo {
-    flex: 1;
+  flex: 1;
 }
 
 .itemName {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .itemMeta {
-    margin-left: 10px;
-    color: #555;
-    font-size: 0.9rem;
+  margin-left: 10px;
+  color: #555;
+  font-size: 0.9rem;
 }
 .itemActions {
-    display: flex;
-    gap: 2px;
+  display: flex;
+  gap: 2px;
 }
 .itemActions button {
-    background: #1976d2;
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
