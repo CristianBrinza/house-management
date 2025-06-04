@@ -21,11 +21,17 @@ const TypeManagement: React.FC = () => {
   const [newTypeName, setNewTypeName] = useState('');
 
   // Map pentru editarea tipurilor:
-  const [editedTypeNames, setEditedTypeNames] = useState<Record<string, string>>({});
+  const [editedTypeNames, setEditedTypeNames] = useState<
+    Record<string, string>
+  >({});
   // Map pentru adăugat subtip la fiecare tip
-  const [newSubTypeNames, setNewSubTypeNames] = useState<Record<string, string>>({});
+  const [newSubTypeNames, setNewSubTypeNames] = useState<
+    Record<string, string>
+  >({});
   // Map pentru schimbat numele unui subtip existent
-  const [editedSubTypes, setEditedSubTypes] = useState<Record<string, Record<string, string>>>({});
+  const [editedSubTypes, setEditedSubTypes] = useState<
+    Record<string, Record<string, string>>
+  >({});
   //   structura: { typeId: { oldSubName: newSubName, ... }, ... }
 
   // Erori locale
@@ -35,7 +41,9 @@ const TypeManagement: React.FC = () => {
   const fetchTypes = async () => {
     setLoading(true);
     try {
-      const res = await axios.get<TypeItem[]>(import.meta.env.VITE_API_URL + '/api/types');
+      const res = await axios.get<TypeItem[]>(
+        import.meta.env.VITE_API_URL + '/api/types'
+      );
       setTypes(res.data);
     } catch (err) {
       console.error('❌ Eroare la fetchTypes în TypeManagement:', err);
@@ -57,7 +65,9 @@ const TypeManagement: React.FC = () => {
     }
     setLocalError(null);
     try {
-      await axios.post(import.meta.env.VITE_API_URL + '/api/types', { name: newTypeName.trim() });
+      await axios.post(import.meta.env.VITE_API_URL + '/api/types', {
+        name: newTypeName.trim(),
+      });
       setNewTypeName('');
       fetchTypes();
     } catch (err: any) {
@@ -87,7 +97,9 @@ const TypeManagement: React.FC = () => {
     }
     setLocalError(null);
     try {
-      await axios.put(import.meta.env.VITE_API_URL + `/api/types/${id}`, { name: newName });
+      await axios.put(import.meta.env.VITE_API_URL + `/api/types/${id}`, {
+        name: newName,
+      });
       fetchTypes();
     } catch (err: any) {
       console.error('❌ Eroare la handleUpdateType:', err);
@@ -104,8 +116,11 @@ const TypeManagement: React.FC = () => {
     }
     setLocalError(null);
     try {
-      await axios.post(import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`, { name: subName });
-      setNewSubTypeNames((prev) => ({ ...prev, [typeId]: '' }));
+      await axios.post(
+        import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`,
+        { name: subName }
+      );
+      setNewSubTypeNames(prev => ({ ...prev, [typeId]: '' }));
       fetchTypes();
     } catch (err: any) {
       console.error('❌ Eroare la handleAddSubType:', err);
@@ -122,14 +137,19 @@ const TypeManagement: React.FC = () => {
     }
     setLocalError(null);
     try {
-      await axios.put(import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`, {
-        oldName: oldSubName,
-        newName: newName
-      });
+      await axios.put(
+        import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`,
+        {
+          oldName: oldSubName,
+          newName: newName,
+        }
+      );
       fetchTypes();
     } catch (err: any) {
       console.error('❌ Eroare la handleRenameSubType:', err);
-      setLocalError(err.response?.data?.error || 'Eroare la redenumire subtip.');
+      setLocalError(
+        err.response?.data?.error || 'Eroare la redenumire subtip.'
+      );
     }
   };
 
@@ -137,7 +157,10 @@ const TypeManagement: React.FC = () => {
   const handleDeleteSubType = async (typeId: string, subName: string) => {
     if (!confirm(`Ștergi subtipul "${subName}"?`)) return;
     try {
-      await axios.delete(import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`, { data: { name: subName } });
+      await axios.delete(
+        import.meta.env.VITE_API_URL + `/api/types/${typeId}/subtypes`,
+        { data: { name: subName } }
+      );
       fetchTypes();
     } catch (err) {
       console.error('❌ Eroare la handleDeleteSubType:', err);
@@ -148,9 +171,12 @@ const TypeManagement: React.FC = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1> <a href="/config">← Back</a>
+        <h1>
+          {' '}
+          <a href="/config">← Back</a>
           <br />
-          Type Management</h1>
+          Type Management
+        </h1>
         {/*<span>Logged in as: {user?.username}</span>*/}
       </header>
 
@@ -164,7 +190,7 @@ const TypeManagement: React.FC = () => {
             type="text"
             placeholder="Nume Tip"
             value={newTypeName}
-            onChange={(e) => setNewTypeName(e.target.value)}
+            onChange={e => setNewTypeName(e.target.value)}
             className={styles.input}
           />
           <button onClick={handleCreateType} className={styles.button}>
@@ -179,16 +205,16 @@ const TypeManagement: React.FC = () => {
         {!loading && types.length === 0 && <p>Nu există tipuri.</p>}
 
         {!loading &&
-          types.map((t) => (
+          types.map(t => (
             <div key={t._id} className={styles.typeCard}>
               <div className={styles.typeHeader}>
                 <input
                   type="text"
                   value={editedTypeNames[t._id] ?? t.name}
-                  onChange={(e) =>
-                    setEditedTypeNames((prev) => ({
+                  onChange={e =>
+                    setEditedTypeNames(prev => ({
                       ...prev,
-                      [t._id]: e.target.value
+                      [t._id]: e.target.value,
                     }))
                   }
                   className={styles.inputSmall}
@@ -211,19 +237,19 @@ const TypeManagement: React.FC = () => {
                 <h4>Subtipuri pentru "{t.name}"</h4>
                 {t.sub_types.length === 0 && <p>(Niciun subtip)</p>}
 
-                {t.sub_types.map((st) => (
+                {t.sub_types.map(st => (
                   <div key={st} className={styles.subtypeRow}>
                     <input
                       type="text"
                       value={editedSubTypes[t._id]?.[st] ?? st}
-                      onChange={(e) => {
+                      onChange={e => {
                         const newVal = e.target.value;
-                        setEditedSubTypes((prev) => ({
+                        setEditedSubTypes(prev => ({
                           ...prev,
                           [t._id]: {
                             ...((prev[t._id] as Record<string, string>) ?? {}),
-                            [st]: newVal
-                          }
+                            [st]: newVal,
+                          },
                         }));
                       }}
                       className={styles.inputSmall}
@@ -248,10 +274,10 @@ const TypeManagement: React.FC = () => {
                     type="text"
                     placeholder="Nume Subtip Nou"
                     value={newSubTypeNames[t._id] ?? ''}
-                    onChange={(e) =>
-                      setNewSubTypeNames((prev) => ({
+                    onChange={e =>
+                      setNewSubTypeNames(prev => ({
                         ...prev,
-                        [t._id]: e.target.value
+                        [t._id]: e.target.value,
                       }))
                     }
                     className={styles.inputSmall}

@@ -19,7 +19,6 @@ const Cart: React.FC = () => {
   // const { user } = useAuth();
   const [lists, setLists] = useState<ShoppingList[]>([]);
   const [newListName, setNewListName] = useState('');
-  const [loading, setLoading] = useState(false);
   const [inventoryNames, setInventoryNames] = useState<string[]>([]);
 
   // preia listele și inventarul doar cu nume (pentru sugestii)
@@ -127,7 +126,6 @@ const Cart: React.FC = () => {
       alert('Cantitate > 0 obligatoriu.');
       return;
     }
-    setLoading(true);
     try {
       await axios.post(
         import.meta.env.VITE_API_URL +
@@ -135,12 +133,10 @@ const Cart: React.FC = () => {
         { quantity: qty }
       );
       await fetchLists();
-      setLoading(false);
       alert(`${itemName} adăugat în inventory (${qty}).`);
     } catch (err) {
       console.error('❌ Eroare la handleBuyItem:', err);
       alert('Eroare la cumpărare item.');
-      setLoading(false);
     }
   };
 

@@ -45,8 +45,14 @@ function App() {
           <Route path="/cart" element={<ProtectedRoute element={<Cart />} />} />
 
           {/* setting and config */}
-          <Route path="/config" element={<ProtectedRoute element={<Config />} />} />
-          <Route path="/types" element={<ProtectedRoute element={<TypeManagement />} />} />
+          <Route
+            path="/config"
+            element={<ProtectedRoute element={<Config />} />}
+          />
+          <Route
+            path="/types"
+            element={<ProtectedRoute element={<TypeManagement />} />}
+          />
 
           {/* Pentru orice altceva, redirecționează la "/" */}
           <Route path="*" element={<Navigate to="/" replace />} />

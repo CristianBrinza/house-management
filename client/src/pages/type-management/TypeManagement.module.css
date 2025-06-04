@@ -1,124 +1,124 @@
 /* TypeManagement.module.css */
 
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem;
-    font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 .header a {
-    text-decoration: none;
-    color: #1976d2;
-    font-size: 0.9rem;
+  text-decoration: none;
+  color: #1976d2;
+  font-size: 0.9rem;
 }
 
 .errorMessage {
-    color: red;
-    margin-bottom: 1rem;
+  color: red;
+  margin-bottom: 1rem;
 }
 
 .createTypeSection {
-    border: 1px solid #e0e0e0;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 6px;
-    background: #fafafa;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  background: #fafafa;
 }
 
 .createTypeForm {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .input {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #343434;
-    color: #fff;
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #343434;
+  color: #fff;
 }
 
 .button {
-    padding: 0.5rem 1rem;
-    background: #388e3c;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.5rem 1rem;
+  background: #388e3c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .listSection {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .typeCard {
-    border: 1px solid #e0e0e0;
-    padding: 1rem;
-    border-radius: 6px;
-    background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 6px;
+  background: #fff;
 }
 .typeCard input {
-    background: #343434;
-    color: #fff;
+  background: #343434;
+  color: #fff;
 }
 
 .typeHeader {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .inputSmall {
-    flex: 1;
-    padding: 0.4rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  flex: 1;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .buttonSmall {
-    padding: 0.4rem 0.75rem;
-    background: #1976d2;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .buttonDelete {
-    padding: 0.4rem 0.75rem;
-    background: #d32f2f;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .subtypesSection {
-    padding-left: 1rem;
-    border-left: 2px solid #e0e0e0;
+  padding-left: 1rem;
+  border-left: 2px solid #e0e0e0;
 }
 
 .subtypeRow {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .addSubtypeRow {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
 }
