@@ -1,6 +1,10 @@
 // server/routes/drunkRoutes.js
 const express = require('express');
-const { getDrunkedDrinks, consumeDrink } = require('../controllers/drunkController');
+const {
+    getDrunkedDrinks,
+    consumeDrink,
+    updateDrunkedComment
+} = require('../controllers/drunkController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 console.log('🔀 drunkRoutes încărcat.');
@@ -45,6 +49,8 @@ router.use(authMiddleware);
  *                     type: number
  *                   consumedAt:
  *                     type: string
+ *                   comment:
+ *                     type: string
  */
 router.get('/', getDrunkedDrinks);
 
@@ -70,5 +76,41 @@ router.get('/', getDrunkedDrinks);
  *         description: Băutura nu a fost găsită
  */
 router.put('/:id', consumeDrink);
+
+/**
+ * @swagger
+ * /api/drunk/{id}/comment:
+ *   put:
+ *     summary: Actualizează comentariul pentru băutura consumată (drunked)
+ *     tags: [Drunked]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID-ul băuturii consumate
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [comment]
+ *             properties:
+ *               comment:
+ *                 type: string
+ *                 description: Comentariu nou (3–5 propoziții+)
+ *     responses:
+ *       200:
+ *         description: Comentariu actualizat
+ *       400:
+ *         description: Date invalide
+ *       404:
+ *         description: Băutura nu a fost găsită
+ */
+router.put('/:id/comment', updateDrunkedComment);
 
 module.exports = router;

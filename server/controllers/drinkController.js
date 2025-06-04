@@ -8,14 +8,12 @@ exports.getDrinks = async (req, res) => {
     try {
         console.log(`📦 [${new Date().toISOString()}] getDrinks → query=%o`, req.query);
         const filter = {};
-
         if (req.query.name) {
             filter.name = { $regex: req.query.name, $options: 'i' };
         }
         if (req.query.type) {
             filter.type = req.query.type;
         }
-
         const drinks = await Drink.find(filter).sort({ name: 1 });
         return res.json(drinks);
     } catch (err) {
@@ -28,8 +26,9 @@ exports.createDrink = async (req, res) => {
     try {
         console.log(`📥 [${new Date().toISOString()}] createDrink → body=%o`, req.body);
 
-        const { name, type, date, price } = req.body;
+        const { name, type, date, price, comment } = req.body;
 
+        // Validări
         if (!name || typeof name !== 'string' || name.trim() === '') {
             return res.status(400).json({ error: 'Câmpul `name` este obligatoriu și trebuie să fie un string nevid.' });
         }
@@ -42,25 +41,32 @@ exports.createDrink = async (req, res) => {
         if (price === undefined || typeof price !== 'number' || price < 0) {
             return res.status(400).json({ error: 'Câmpul `price` este obligatoriu și trebuie să fie un număr ≥ 0.' });
         }
+        // `comment` este opțional, dar dacă există trebuie să fie string
+        if (comment !== undefined && typeof comment !== 'string') {
+            return res.status(400).json({ error: 'Câmpul `comment` trebuie să fie un string.' });
+        }
 
-        // Verificăm dacă tipul există
+        // Verificăm dacă tipul există în colecția de tipuri
         const typeExists = await DrinkType.findOne({ name: type.trim() });
         if (!typeExists) {
-            return res.status(400).json({ error: `Tipul "${type}" nu există. Trebuie întâi să-l creezi în /api/drink-types.` });
+            return res.status(400).json({ error: `Tipul "${type}" nu există. Creează-l în /api/drink-types.` });
         }
 
         const newDrink = await Drink.create({
-            name: name.trim(),
-            type: type.trim(),
-            date: date,
-            price: price
+            name:    name.trim(),
+            type:    type.trim(),
+            date:    date,
+            price:   price,
+            comment: comment ? comment.trim() : ''   // salvează comentariul (sau gol)
         });
+
         console.log(`✅ Drink creat: ${newDrink._id} → ${newDrink.name}`);
         return res.status(201).json(newDrink);
+
     } catch (err) {
         console.error('❌ Eroare la createDrink:', err);
         if (err.code === 11000) {
-            return res.status(400).json({ error: 'Băutura există deja în baza de date cu aceleași câmpuri unice.' });
+            return res.status(400).json({ error: 'Băutura există deja cu aceleași date unice.' });
         }
         return res.status(500).json({ error: 'Server error la creare băutură.' });
     }
@@ -71,12 +77,13 @@ exports.updateDrink = async (req, res) => {
         const { id } = req.params;
         console.log(`🔄 [${new Date().toISOString()}] updateDrink ID=${id} body=%o`, req.body);
 
-        const { name, type, date, price } = req.body;
+        const { name, type, date, price, comment } = req.body;
         const drink = await Drink.findById(id);
         if (!drink) {
             return res.status(404).json({ error: 'Băutura nu a fost găsită.' });
         }
 
+        // Actualizăm doar câmpurile care vin valide în body
         if (name && typeof name === 'string' && name.trim() !== '') {
             drink.name = name.trim();
         }
@@ -93,10 +100,17 @@ exports.updateDrink = async (req, res) => {
         if (price !== undefined && typeof price === 'number' && price >= 0) {
             drink.price = price;
         }
+        if (comment !== undefined) {
+            if (typeof comment !== 'string') {
+                return res.status(400).json({ error: 'Câmpul `comment` trebuie să fie un string.' });
+            }
+            drink.comment = comment.trim();
+        }
 
         await drink.save();
         console.log(`✏️  Drink actualizat: ${drink._id} → ${drink.name}`);
         return res.json(drink);
+
     } catch (err) {
         console.error('❌ Eroare la updateDrink:', err);
         return res.status(500).json({ error: 'Server error la actualizare băutură.' });

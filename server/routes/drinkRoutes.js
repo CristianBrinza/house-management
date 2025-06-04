@@ -59,6 +59,8 @@ router.use(authMiddleware);
  *                     type: string
  *                   price:
  *                     type: number
+ *                   comment:
+ *                     type: string
  */
 router.get('/', getDrinks);
 
@@ -87,6 +89,9 @@ router.get('/', getDrinks);
  *                 description: Format YYYY-MM
  *               price:
  *                 type: number
+ *               comment:
+ *                 type: string
+ *                 description: Comentariu opțional (3–5 propoziții+)
  *     responses:
  *       201:
  *         description: Băutură creată
@@ -125,6 +130,8 @@ router.post('/', createDrink);
  *                 type: string
  *               price:
  *                 type: number
+ *               comment:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Băutură actualizată
