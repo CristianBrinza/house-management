@@ -318,7 +318,7 @@ const Inventory: React.FC = () => {
           >
             <div className={styles.itemInfo}>
               <img
-                src={`/images/${item.name}.png`}
+                src={`/images/${item.name.toLowerCase()}.png`}
                 alt="img"
                 className={styles.itemInfo_img}
               />

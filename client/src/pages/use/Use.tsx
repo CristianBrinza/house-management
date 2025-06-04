@@ -19,8 +19,6 @@ interface UseHistory {
   items: { inventoryItem?: string; name: string; quantity: number }[];
 }
 
-// const quickQuantities = [0, 0.25, 0.5, 1];
-
 const Use: React.FC = () => {
   // const { user } = useAuth();
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
@@ -132,26 +130,6 @@ const Use: React.FC = () => {
         {/*<span className={styles.userLabel}>Logged in as: {user?.username}</span>*/}
       </header>
 
-      {/* Form pentru denumirea grupului și butonul „Use” */}
-      <section className={styles.groupForm} style={{ display: 'none' }}>
-        <input
-          type="text"
-          placeholder="Numele grupului (opțional)"
-          value={groupName}
-          onChange={e => setGroupName(e.target.value)}
-          className={styles.groupInput}
-        />
-        {canUse && (
-          <button
-            onClick={handleUse}
-            disabled={loading}
-            className={styles.useButton}
-          >
-            {loading ? 'Procesează...' : 'Use'}
-          </button>
-        )}
-      </section>
-
       {/* Afișează ce itemi au fost deja selectați */}
       {canUse && (
         <section className={styles.summarySection}>
@@ -193,32 +171,62 @@ const Use: React.FC = () => {
               : 'Începe să tastezi pentru a găsi itemi.'}
           </p>
         ) : (
-          availableItems.map(item => (
-            <div key={item._id} className={styles.inventoryItem}>
-              <div className={styles.itemInfo}>
-                <span className={styles.itemName}>{item.name}</span>
-                <span className={styles.itemMeta}>
-                  Stoc: {item.quantity} ({item.type} | {item.sub_type})
-                </span>
+          availableItems.map(item => {
+            // Cantitatea curentă selectată (sau 0 implicit)
+            const currentQty = selected[item._id] ?? 0;
+            return (
+              <div key={item._id} className={styles.inventoryItem}>
+                <div className={styles.itemInfo}>
+                  <span className={styles.itemName}>{item.name}</span>
+                  <span className={styles.itemMeta}>
+                    Stoc: {item.quantity} ({item.type} | {item.sub_type})
+                  </span>
+                </div>
+                <div className={styles.itemSelect}>
+                  {/* Buton „-” */}
+                  <div
+                    className={styles.itemSelect_btn}
+                    onClick={() =>
+                      handleQuantityChange(
+                        item._id,
+                        Math.max(0, currentQty - 1)
+                      )
+                    }
+                  >
+                    −
+                  </div>
+
+                  <input
+                    type="number"
+                    min={0}
+                    max={item.quantity}
+                    step="1"
+                    value={currentQty}
+                    onChange={e =>
+                      handleQuantityChange(
+                        item._id,
+                        Math.min(item.quantity, parseInt(e.target.value) || 0)
+                      )
+                    }
+                    className={styles.quantityInput}
+                  />
+
+                  {/* Buton „+” */}
+                  <div
+                    className={styles.itemSelect_btn}
+                    onClick={() =>
+                      handleQuantityChange(
+                        item._id,
+                        Math.min(item.quantity, currentQty + 1)
+                      )
+                    }
+                  >
+                    +
+                  </div>
+                </div>
               </div>
-              <div className={styles.itemSelect}>
-                <input
-                  type="number"
-                  min={0}
-                  max={item.quantity}
-                  step="0.01"
-                  value={selected[item._id] ?? 0}
-                  onChange={e =>
-                    handleQuantityChange(
-                      item._id,
-                      Math.min(item.quantity, parseFloat(e.target.value) || 0)
-                    )
-                  }
-                  className={styles.quantityInput}
-                />
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </section>
 
