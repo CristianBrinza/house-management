@@ -11,6 +11,9 @@ export default function Home() {
       <a className={styles.home_btn} href="/config">
         Config
       </a>
+      <a className={styles.home_btn} href="/login">
+        Logout
+      </a>
     </div>
   );
 }

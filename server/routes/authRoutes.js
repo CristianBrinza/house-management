@@ -1,8 +1,15 @@
-// routes/authRoutes.js
+// server/routes/authRoutes.js
 const express = require('express');
-const { register, login } = require('../controllers/authController');
+const {
+  register,
+  login,
+  getCurrentUser
+} = require('../controllers/authController');
+const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
+
+console.log('🔀 authRoutes încărcat.');
 
 /**
  * @swagger
@@ -35,13 +42,9 @@ const router = express.Router();
  *       201:
  *         description: Utilizator creat cu succes
  *       400:
- *         description: Username deja există
+ *         description: Username deja există sau date invalide
  */
 // router.post('/register', register);
-// router.post('/register', (req, res, next) => {
-//   console.log(`➡️  [${new Date().toISOString()}] Ruta POST /api/auth/register apelată.`);
-//   next();
-// }, register);
 
 /**
  * @swagger
@@ -65,13 +68,33 @@ const router = express.Router();
  *                 type: string
  *     responses:
  *       200:
- *         description: Autentificare reușită
+ *         description: Autentificare reușită (returnează token)
  *       401:
  *         description: Credențiale invalide
  */
-router.post('/login', (req, res, next) => {
-  console.log(`➡️  [${new Date().toISOString()}] Ruta POST /api/auth/login apelată.`);
-  next();
-}, login);
+router.post(
+    '/login',
+    (req, res, next) => {
+      console.log(`➡️  [${new Date().toISOString()}] Ruta POST /api/auth/login apelată.`);
+      next();
+    },
+    login
+);
+
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Returnează utilizatorul curent (verifică token)
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Informații utilizator (id, username)
+ *       401:
+ *         description: Lipsește token sau token invalid
+ */
+router.get('/me', authMiddleware, getCurrentUser);
 
 module.exports = router;

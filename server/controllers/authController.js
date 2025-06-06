@@ -1,71 +1,62 @@
+// server/controllers/authController.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-console.log('🔐 authController încărcat.');
-
-// Creează un token JWT pe baza ID-ului user-ului
-const createToken = (user) => {
-  console.log(`🔑 Generare token pentru user ${user.username} (ID: ${user._id})`);
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-};
+console.log('🔄 authController încărcat.');
 
 exports.register = async (req, res) => {
-  console.log(`🆕 [${new Date().toISOString()}] Începe înregistrarea unui nou utilizator:`, req.body);
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      console.warn('⚠️ Lipsă username sau password în corpul cererii');
-      return res.status(400).json({ error: 'Both username and password are required' });
+      return res.status(400).json({ error: 'Username și password sunt obligatorii.' });
     }
-
-    console.log(`🔍 Se verifică dacă există deja user cu username="${username}"`);
     const existing = await User.findOne({ username });
     if (existing) {
-      console.warn(`❌ Username "${username}" deja există în baza de date.`);
-      return res.status(400).json({ error: 'Username already exists' });
+      return res.status(400).json({ error: 'Username deja există.' });
     }
-
-    console.log(`📝 Creare user nou: username="${username}"`);
-    const user = await User.create({ username, password });
-    console.log(`✅ Utilizator creat cu ID=${user._id}`);
-
-    const token = createToken(user);
-    console.log(`📤 Trimit token și info user către client.`);
-    res.status(201).json({ token, user: { id: user._id, username: user.username } });
+    const newUser = new User({ username, password });
+    await newUser.save();
+    console.log(`✅ User creat: ${username}`);
+    return res.status(201).json({ message: 'User creat cu succes.' });
   } catch (err) {
-    console.error('❌ Eroare în controller register:', err);
-    res.status(500).json({ error: 'Server error during registration' });
+    console.error('❌ Eroare la register:', err);
+    return res.status(500).json({ error: 'Server error la înregistrare.' });
   }
 };
 
 exports.login = async (req, res) => {
-  console.log(`🔑 [${new Date().toISOString()}] Începe autentificare:`, req.body);
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      console.warn('⚠️ Lipsă username sau password în corpul cererii login');
-      return res.status(400).json({ error: 'Both username and password are required' });
+      return res.status(400).json({ error: 'Username și password sunt obligatorii.' });
     }
-
-    console.log(`🔍 Se caută user cu username="${username}"`);
     const user = await User.findOne({ username });
     if (!user) {
-      console.warn(`❌ Nu s-a găsit user cu username="${username}". Autentificare eșuată.`);
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Credențiale invalide.' });
     }
-
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      console.warn(`❌ Password invalid pentru user "${username}". Autentificare eșuată.`);
-      return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Credențiale invalide.' });
     }
-
-    console.log(`✅ User "${username}" autentificat cu succes.`);
-    const token = createToken(user);
-    console.log(`📤 Trimit token și info user către client.`);
-    res.json({ token, user: { id: user._id, username: user.username } });
+    // Semnăm tokenul fără expirare (nu includem expiresIn)
+    const payload = { id: user._id, username: user.username };
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+    console.log(`✅ Login reușit pentru user: ${username}`);
+    return res.json({ user: { id: user._id, username: user.username }, token });
   } catch (err) {
-    console.error('❌ Eroare în controller login:', err);
-    res.status(500).json({ error: 'Server error during login' });
+    console.error('❌ Eroare la login:', err);
+    return res.status(500).json({ error: 'Server error la autentificare.' });
+  }
+};
+
+// Endpoint pentru validarea token-ului (GET /api/auth/me)
+exports.getCurrentUser = async (req, res) => {
+  try {
+    // Aici authMiddleware deja a setat req.user după decodarea tokenului
+    const { id, username } = req.user;
+    return res.json({ id, username });
+  } catch (err) {
+    console.error('❌ Eroare la getCurrentUser:', err);
+    return res.status(500).json({ error: 'Server error la validare token.' });
   }
 };

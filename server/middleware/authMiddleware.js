@@ -1,3 +1,4 @@
+// server/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 
 console.log('🔒 authMiddleware încărcat.');
@@ -18,12 +19,13 @@ module.exports = (req, res, next) => {
   }
 
   try {
+    // Nu verificăm expirare, deci token-ul rămâne valid „pentru totdeauna”
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log(`✅ Token valid pentru user ID=${decoded.id}.`);
     req.user = decoded;
     next();
   } catch (err) {
-    console.warn('❌ Token invalid sau expirat:', err.message);
+    console.warn('❌ Token invalid:', err.message);
     return res.status(403).json({ error: 'Invalid token' });
   }
 };

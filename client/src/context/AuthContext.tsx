@@ -38,18 +38,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // La montare, verificăm localStorage și setăm user/token
+  // La montare, verificăm dacă există token și îl validăm
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      const token = localStorage.getItem('token');
-      if (token) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      }
+    const token = localStorage.getItem('token');
+
+    if (storedUser && token) {
+      // Setăm header pentru toate request-urile
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      // Verificăm token-ul la backend
+      axios
+        .get(import.meta.env.VITE_API_URL + '/api/auth/me')
+        .then(res => {
+          const { id, username } = res.data;
+          setUser({ id, username });
+          setLoading(false);
+        })
+        .catch(err => {
+          console.warn('❌ Token invalid la startup:', err);
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+          delete axios.defaults.headers.common['Authorization'];
+          setUser(null);
+          setLoading(false);
+          navigate('/login', { replace: true });
+        });
+    } else {
+      setLoading(false);
     }
-    setLoading(false); // Am terminat verificarea inițială
-  }, []);
+  }, [navigate]);
 
   const login = async (username: string, password: string) => {
     try {
@@ -62,9 +80,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUser(loggedUser);
-      navigate('/'); // după login, redirecționează pe Home (sau orice rută protejată)
+      navigate('/', { replace: true });
     } catch (err) {
-      console.error(err);
+      console.error('❌ Eroare la login:', err);
       alert('Credențiale invalide');
     }
   };
@@ -74,7 +92,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
 
   return (
