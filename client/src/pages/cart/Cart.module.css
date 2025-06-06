@@ -103,6 +103,12 @@
   border-radius: 4px;
   cursor: pointer;
 }
+.listItemButtons {
+  width: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
 .addItemForm {
   display: flex;
