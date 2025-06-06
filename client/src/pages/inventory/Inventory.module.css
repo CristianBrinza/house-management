@@ -185,7 +185,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 80vw;
 }
 
 .popupContent {
@@ -194,6 +193,7 @@
   border-radius: 6px;
   width: 350px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 80vw;
 }
 
 .editRow {
