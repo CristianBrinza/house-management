@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  mongo:
+    image: mongo:7.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: house_management
+
+  server:
+    build:
+      context: ./server
+    environment:
+      PORT: 5001
+      MONGO_URI: mongodb://mongo:27017/house_management
+      JWT_SECRET: change-me
+      HEALTH_TOKEN: change-me
+    depends_on:
+      - mongo
+    ports:
+      - "5001:5001"
+
+  client:
+    build:
+      context: ./client
+      args:
+        VITE_API_URL: /api
+    depends_on:
+      - server
+    ports:
+      - "8080:80"
+
+volumes:
+  mongo-data:
